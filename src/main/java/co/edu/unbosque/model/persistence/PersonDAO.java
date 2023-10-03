@@ -5,95 +5,50 @@ import java.util.Date;
 import co.edu.unbosque.model.PersonDTO;
 import co.edu.unbosque.util.MyDoubleLinkedList;
 import co.edu.unbosque.util.MyLinkedList;
+import co.edu.unbosque.util.QueueImp;
 
-public class PersonDAO implements CRUDOperation{
+public class PersonDAO{
 	
-	private MyDoubleLinkedList<PersonDTO> listOfPeople;
+	private QueueImp<PersonDTO> queueOfPeople;
 	
 	public PersonDAO() {
-		listOfPeople = new MyDoubleLinkedList<PersonDTO>();
+		queueOfPeople = new QueueImp<PersonDTO>();
 	}
 
-	@Override
-	public void create(Object o) {
-		int index = listOfPeople.size() + 1;
-		listOfPeople.add(index, (PersonDTO) o);
-		
+	public QueueImp<PersonDTO> getQueueOfPeople() {
+		return queueOfPeople;
 	}
 
-	@Override
+	public void setQueueOfPeople(QueueImp<PersonDTO> queueOfPeople) {
+		this.queueOfPeople = queueOfPeople;
+	}
+
+	public void enqueue(Object o) {
+		queueOfPeople.enqueue((PersonDTO) o);
+	}
+
+	@SuppressWarnings("deprecation")
 	public void create(String... args) {
-		int index = listOfPeople.size() + 1;
 		String[] spaces = args[1].split("-");
 		int year = Integer.parseInt(spaces[0]);
 		int month = Integer.parseInt(spaces[1]);
 		int day = Integer.parseInt(spaces[2]);
 		Date birth = new Date(year, month, day);
 		PersonDTO newPerson = new PersonDTO(args[0], birth, args[2], args[3], new MyLinkedList<String>());
-		listOfPeople.add(index, newPerson);
-		
+		queueOfPeople.enqueue(newPerson);
 	}
 
-	@Override
 	public String readAll() {
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i<listOfPeople.size(); i++) {
-			sb.append(listOfPeople.get(i).toString());
-		}
-		return sb.toString();
+		return queueOfPeople.toString();
+	}
+	
+	public String readFirst() {
+		return queueOfPeople.peek().toString();
 	}
 
-	@Override
-	public boolean updateById(int i, Object o) {
+	public int dequeue() {
 		try {
-			listOfPeople.set(i, (PersonDTO) o);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	@Override
-	public boolean updateBYName(String name, Object o) {
-		try {
-			int index = 0;
-			searchName: for(int i = 0; i<listOfPeople.size(); i++) {
-				index++;
-				if(listOfPeople.get(i).getName().equals(name)) {
-					break searchName;
-				}
-			}
-			listOfPeople.set(index, (PersonDTO) o);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	@Override
-	public int deleteById(int i) {
-		try {
-			listOfPeople.remove(i);
-			return 0;
-		} catch (IndexOutOfBoundsException e) {
-			e.printStackTrace();
-			return -1;
-		}
-	}
-
-	@Override
-	public int deleteByName(String name) {
-		try {
-			int index = 0;
-			searchName: for(int i = 0; i<listOfPeople.size(); i++) {
-				index++;
-				if(listOfPeople.get(i).getName().equals(name)) {
-					break searchName;
-				}
-			}
-			listOfPeople.remove(index);
+			queueOfPeople.dequeue();
 			return 0;
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();

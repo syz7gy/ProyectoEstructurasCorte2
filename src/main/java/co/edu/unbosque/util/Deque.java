@@ -6,6 +6,8 @@ public interface Deque <T>{
 	public T removeLast();
 	public void insertFirst(T info);
 	public T removeFirst();
+	public DNode<T> get(T info);
+	public DNode<T> get(int i);
 	public int size();
 
 }

@@ -133,18 +133,19 @@ public class MyDoubleLinkedList<T> implements Iterable<T>,Serializable{
 		extract();
 	}
 	
-	public void add(int index,T info) {
+	public void add(int index, T info) {
 		index-=1;
 		if(posActual>index) backwards(Math.abs(posActual-index));
 		else forward(Math.abs(posActual-index));
 		insert(info);
 	}
 	
-	public T get(int index) {
+	public DNode<T> get(int index) {
 		if(posActual>index) backwards(Math.abs(posActual-index));
 		else forward(Math.abs(posActual-index));
-		return currentPosition.getInfo();
+		return currentPosition;
 	}
+	
 	
 	public boolean isEmpty() {
 		return size==0;
@@ -176,7 +177,8 @@ public class MyDoubleLinkedList<T> implements Iterable<T>,Serializable{
 
 			@Override
 			public T next() {
-				T temp=get(index);
+				DNode<T> node = get(index);
+				T temp= node.getInfo();
 				index++;
 				return temp;
 			}

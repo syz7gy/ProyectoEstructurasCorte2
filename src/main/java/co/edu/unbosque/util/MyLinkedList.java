@@ -168,7 +168,7 @@ public class MyLinkedList<E> implements Serializable{
 		while(current != null) {
 			listText += current.getInfo().toString();
 			if(current.getNext()!= null) {
-				listText+= "-->";
+				listText+= " | ";
 			}
 			current =current.getNext();
 		}

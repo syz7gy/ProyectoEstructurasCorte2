@@ -11,6 +11,14 @@ public class QueueImp<T> implements Queue<T>,Iterable<T>,Serializable{
 		infos=new DequeList<>();
 	}
 
+	public DequeList<T> getInfos() {
+		return infos;
+	}
+
+	public void setInfos(DequeList<T> infos) {
+		this.infos = infos;
+	}
+
 	@Override
 	public void enqueue(T info) {
 		infos.insertLast(info);
@@ -30,6 +38,14 @@ public class QueueImp<T> implements Queue<T>,Iterable<T>,Serializable{
 	@Override
 	public T peek() {
 		return infos.getHead().getInfo();
+	}
+	
+	public DNode<T> getData(T info){
+		return infos.get(info);
+	}
+	
+	public T get(int i){
+		return infos.getByIndex(i);
 	}
 	
 	@Override

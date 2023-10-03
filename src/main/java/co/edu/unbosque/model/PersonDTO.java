@@ -13,7 +13,7 @@ public class PersonDTO {
 	private MyLinkedList<String> listOfDiseases;
 	
 	public PersonDTO() {
-		// TODO Auto-generated constructor stub
+		this.listOfDiseases = new MyLinkedList<String>();
 	}
 
 	public PersonDTO(String name, Date birth, String document, String nationality,
