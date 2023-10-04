@@ -34,9 +34,9 @@ public class PlaceDAO implements CRUDOperation {
 	}
 	
 	public void addPerson(String name, PersonDTO newPerson) {
-		PlaceDTO currentPlace = null;
-		for(int i = 0; 1<listOfPlaces.size(); i++) {
-			currentPlace = listOfPlaces.getData(i);
+		PlaceDTO currentPlace = new PlaceDTO();
+		for(int i = 0; i<listOfPlaces.size(); i++) {
+			currentPlace = listOfPlaces.get(i).getInfo();
 			if(currentPlace.getName().equals(name)) {
 				break;
 			}
@@ -67,11 +67,12 @@ public class PlaceDAO implements CRUDOperation {
 	}
 	
 	public String showNames() {
-		StringBuilder sb = new StringBuilder();
+		String places = "";
+		listOfPlaces = initList();
 		for(int i = 0; i<listOfPlaces.size(); i++) {
-			sb.append(listOfPlaces.getData(i).getName() + ", ");
+			places += listOfPlaces.getData(i).getName() + ", ";
 		}
-		return sb.toString();
+		return places;
 	}
 
 	@Override
