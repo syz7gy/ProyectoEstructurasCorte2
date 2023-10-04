@@ -67,7 +67,7 @@ public class Controller {
 					grafito.addVertex(person);
 					perDao.enqueue(newPerson);
 					int cantidadLugares = 5;
-					for(int i = 0; i<5; i++) {
+					for(int i = 0; i<=5; i++) {
 						con.printLine("Indique a los ultimos 5 de los siguientes lugares que ha visitado (Faltan " + cantidadLugares + "):");
 						con.printLine(plDao.showNames());
 						cantidadLugares--;
@@ -82,13 +82,12 @@ public class Controller {
 					Vertex destination = new Vertex();
 					perDao.enqueue(newPerson);
 					int cantidadLugares = 5;
-					for(int i = 0; i<5; i++) {
+					for(int i = 1; i<5; i++) {
 						con.printLine("Indique a los ultimos 5 de los siguientes lugares que ha visitado (Faltan " + cantidadLugares + "):");
-						con.burnLine();
 						con.printLine(plDao.showNames());
-						cantidadLugares--;
 						String placeName = con.next();
 						plDao.addPerson(placeName, newPerson);
+						cantidadLugares--;
 					}
 					perDao.getQueueOfPeople().getData(newPerson);
 					Random randomSelect = new Random(3);

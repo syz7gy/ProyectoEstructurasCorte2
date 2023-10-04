@@ -8,6 +8,7 @@ public class Console {
 	
 	public Console() {
 		sc = new Scanner(System.in);
+		sc.useDelimiter("\n");
 	}
 	
 	public int nextInt() {

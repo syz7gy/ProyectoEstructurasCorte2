@@ -34,14 +34,17 @@ public class PlaceDAO implements CRUDOperation {
 	}
 	
 	public void addPerson(String name, PersonDTO newPerson) {
-		PlaceDTO currentPlace = new PlaceDTO();
+//		MyDoubleLinkedList<PlaceDTO> tempList = initList();
+//		listOfPlaces = tempList;
+		PlaceDTO currentPlace = listOfPlaces.getData(0);
 		for(int i = 0; i<listOfPlaces.size(); i++) {
-			currentPlace = listOfPlaces.getData(i);
+			currentPlace = listOfPlaces.get(i).getNext().getInfo();
 			if(currentPlace.getName().equalsIgnoreCase(name)) {
+				currentPlace.getListOfVisiters().add(newPerson);
 				break;
 			}
 		}
-		currentPlace.getListOfVisiters().add(newPerson);
+		
 	}
 
 	@Override
