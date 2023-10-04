@@ -73,7 +73,8 @@ public class Controller {
 					perDao.enqueue(newPerson);
 					int cantidadLugares = 5;
 					for(int i = 0; i<5; i++) {
-						con.printLine("Indique a los ultimos 5 de los siguientes lugares que ha visitado (Faltan" + cantidadLugares + "):");
+						con.printLine("Indique a los ultimos 5 de los siguientes lugares que ha visitado (Faltan " + cantidadLugares + "):");
+						con.printLine(plDao.showNames());
 						cantidadLugares--;
 						String placeName = con.next();
 						plDao.addPerson(placeName, newPerson);
@@ -88,6 +89,7 @@ public class Controller {
 					int cantidadLugares = 5;
 					for(int i = 0; i<5; i++) {
 						con.printLine("Indique a los ultimos 5 de los siguientes lugares que ha visitado (Faltan " + cantidadLugares + "):");
+						con.burnLine();
 						con.printLine(plDao.showNames());
 						cantidadLugares--;
 						String placeName = con.next();
