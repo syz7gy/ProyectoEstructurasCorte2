@@ -30,10 +30,10 @@ public class PersonDAO{
 	@SuppressWarnings("deprecation")
 	public void create(String... args) {
 		String[] spaces = args[1].split("-");
-		int year = Integer.parseInt(spaces[0]);
+		int year = Integer.parseInt(spaces[0]) - 1900;
 		int month = Integer.parseInt(spaces[1]);
 		int day = Integer.parseInt(spaces[2]);
-		Date birth = new Date(year, month, day);
+		java.sql.Date birth = new java.sql.Date((year-1900), month, day);
 		PersonDTO newPerson = new PersonDTO(args[0], birth, args[2], args[3], new MyLinkedList<String>());
 		queueOfPeople.enqueue(newPerson);
 	}

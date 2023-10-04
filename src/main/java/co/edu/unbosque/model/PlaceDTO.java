@@ -36,8 +36,8 @@ public class PlaceDTO {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Name: " +  name);
-		sb.append("\nVisitors: " + listOfVisitors.toString());
+		sb.append("\nName: " +  name);
+		sb.append("\nVisitors: " + listOfVisitors.toString() + "\n");
 		return sb.toString();
 	}
 	

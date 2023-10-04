@@ -11,7 +11,7 @@ public class PlaceDAO implements CRUDOperation {
 	private PlaceDTO currentPlace;
 
 	public PlaceDAO() {
-		listOfPlaces = new MyDoubleLinkedList<PlaceDTO>();
+		listOfPlaces = initList();
 		currentPlace = new PlaceDTO();
 	}
 
@@ -21,6 +21,30 @@ public class PlaceDAO implements CRUDOperation {
 
 	public void setListOfPlaces(MyDoubleLinkedList<PlaceDTO> listOfPlaces) {
 		this.listOfPlaces = listOfPlaces;
+	}
+	
+	public MyDoubleLinkedList<PlaceDTO> initList() {
+		MyDoubleLinkedList<PlaceDTO> places = new MyDoubleLinkedList<PlaceDTO>();
+		String[] names = {"Banco", "Centro Comercial", "Cine", "Universidad", "Supermercado", "Tienda de ropa", "Restaurante", "Biblioteca"};
+		for (int i = 0; i<names.length; i++) {
+			PlaceDTO newPlace = new PlaceDTO(names[i], new MyLinkedList<PersonDTO>());
+			places.add(i + 1, newPlace);
+		}
+		return places;
+	}
+	
+	public void addPerson(String name, PersonDTO newPerson) {
+//		MyDoubleLinkedList<PlaceDTO> tempList = initList();
+//		listOfPlaces = tempList;
+		PlaceDTO currentPlace = listOfPlaces.getData(0);
+		for(int i = 0; i<listOfPlaces.size(); i++) {
+			currentPlace = listOfPlaces.get(i).getNext().getInfo();
+			if(currentPlace.getName().equalsIgnoreCase(name)) {
+				currentPlace.getListOfVisiters().add(newPerson);
+				break;
+			}
+		}
+		
 	}
 
 	@Override
@@ -40,9 +64,17 @@ public class PlaceDAO implements CRUDOperation {
 	public String readAll() {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < listOfPlaces.size(); i++) {
-			sb.append(listOfPlaces.get(i).toString());
+			sb.append(listOfPlaces.getData(i));
 		}
 		return sb.toString();
+	}
+	
+	public String showNames() {
+		String places = "";
+		for(int i = 0; i<listOfPlaces.size(); i++) {
+			places += listOfPlaces.getData(i) + ", ";
+		}
+		return places;
 	}
 
 	@Override
@@ -103,10 +135,6 @@ public class PlaceDAO implements CRUDOperation {
 			e.printStackTrace();
 			return -1;
 		}
-	}
-	
-	public void addPerson(PersonDTO newPerson) {
-		this.currentPlace.getListOfVisiters().add(newPerson);
 	}
 
 }

@@ -7,7 +7,7 @@ import co.edu.unbosque.util.MyLinkedList;
 public class PersonDTO {
 	
 	private String name;
-	private Date birth;
+	private java.sql.Date birth;
 	private String document;
 	private String nationality;
 	private MyLinkedList<String> listOfDiseases;
@@ -16,7 +16,7 @@ public class PersonDTO {
 		this.listOfDiseases = new MyLinkedList<String>();
 	}
 
-	public PersonDTO(String name, Date birth, String document, String nationality,
+	public PersonDTO(String name, java.sql.Date birth, String document, String nationality,
 			MyLinkedList<String> listOfDiseases) {
 		super();
 		this.name = name;
@@ -34,11 +34,11 @@ public class PersonDTO {
 		this.name = name;
 	}
 
-	public Date getBirth() {
+	public java.sql.Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(java.sql.Date birth) {
 		this.birth = birth;
 	}
 
