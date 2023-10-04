@@ -47,15 +47,9 @@ public class Controller {
 				con.printLine("Nombre:");
 				String name = con.next();
 				con.printLine("Nacimiento: ");
-				String fecha = con.next();
-				String[] spaces = fecha.split("-");
-				int year = Integer.parseInt(spaces[0]);
-				int month = Integer.parseInt(spaces[1]);
-				int day = Integer.parseInt(spaces[2]);
-				String date = con.nextLine();
-				Date birth = new Date(year, month, day);
+				String date = con.next();
 				con.printLine("Documento: ");
-				String doc = con.next();
+				Long doc = con.nextLong();
 				con.printLine("Nacionalidad:");
 				String naci = con.next();
 				con.printLine("Cuántas enfermedades posee?");
@@ -67,8 +61,8 @@ public class Controller {
 				}
 				con.printLine("Parámetros del paciente satisfechos. \nPciente ingresado con exito");
 
-				perDao.create(new PersonDTO(0, name, birth, doc, naci, listOfDiseases));
-				PersonDTO newPerson = new PersonDTO(0,name, birth, doc, naci, listOfDiseases);
+				perDao.create(new PersonDTO(0, name, date, doc, naci, listOfDiseases));
+				PersonDTO newPerson = new PersonDTO(0,name, date, doc, naci, listOfDiseases);
 				perDao.enqueue(newPerson);
 				plDao.addPerson(newPerson);
 

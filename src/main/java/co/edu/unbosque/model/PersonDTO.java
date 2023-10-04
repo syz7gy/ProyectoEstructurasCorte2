@@ -6,10 +6,10 @@ import co.edu.unbosque.util.MyLinkedList;
 
 public class PersonDTO {
 	
-	private int id;
+	private int id; 
 	private String name;
-	private Date birth;
-	private String document;
+	private String birth;
+	private long document;
 	private String nationality;
 	private MyLinkedList<String> listOfDiseases;
 	
@@ -17,18 +17,16 @@ public class PersonDTO {
 		this.listOfDiseases = new MyLinkedList<String>();
 	}
 
-	public PersonDTO(int id, String name, Date birth, String document, String nationality,
+	public PersonDTO( int id, String name, String birth, long document, String nationality,
 			MyLinkedList<String> listOfDiseases) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.birth = birth;
 		this.document = document;
 		this.nationality = nationality;
 		this.listOfDiseases = listOfDiseases;
 	}
-
-	
-
 
 	public int getId() {
 		return id;
@@ -46,19 +44,21 @@ public class PersonDTO {
 		this.name = name;
 	}
 
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 
-	public String getDocument() {
+	
+
+	public long getDocument() {
 		return document;
 	}
 
-	public void setDocument(String document) {
+	public void setDocument(long document) {
 		this.document = document;
 	}
 
@@ -78,10 +78,11 @@ public class PersonDTO {
 		this.listOfDiseases = listOfDiseases;
 	}
 
-	@Override
-	public String toString() {
+
+	public String toString1() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("id: " + id);
+		
+		sb.append("id: " + name);
 		sb.append(" | Name: " + name);
 		sb.append(" | Birth date: " + birth);
 		sb.append(" | Document: " + document);
@@ -89,6 +90,11 @@ public class PersonDTO {
 		sb.append(" | Diseases: " + listOfDiseases.toString() + "\n");
 		return sb.toString();
 	}
-	
+
+	@Override
+	public String toString() {
+		return "PersonDTO [listOfDiseases=" + listOfDiseases + "]";
+	}
 
 }
+
