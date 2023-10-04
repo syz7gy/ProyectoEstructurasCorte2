@@ -6,6 +6,7 @@ import co.edu.unbosque.util.MyLinkedList;
 
 public class PersonDTO {
 	
+	private int id;
 	private String name;
 	private Date birth;
 	private String document;
@@ -16,7 +17,7 @@ public class PersonDTO {
 		this.listOfDiseases = new MyLinkedList<String>();
 	}
 
-	public PersonDTO(String name, Date birth, String document, String nationality,
+	public PersonDTO(int id, String name, Date birth, String document, String nationality,
 			MyLinkedList<String> listOfDiseases) {
 		super();
 		this.name = name;
@@ -24,6 +25,17 @@ public class PersonDTO {
 		this.document = document;
 		this.nationality = nationality;
 		this.listOfDiseases = listOfDiseases;
+	}
+
+	
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -69,7 +81,8 @@ public class PersonDTO {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Name: " + name);
+		sb.append("id: " + id);
+		sb.append(" | Name: " + name);
 		sb.append(" | Birth date: " + birth);
 		sb.append(" | Document: " + document);
 		sb.append(" | Nationality: " + nationality);

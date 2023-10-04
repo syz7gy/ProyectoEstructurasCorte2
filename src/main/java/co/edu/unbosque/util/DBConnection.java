@@ -13,11 +13,11 @@ public class DBConnection {
 	private Statement statement = null;
 	private PreparedStatement prepareStatement = null;
 	private ResultSet resultSet = null;
-	private final String IP = "127.0.0.1";
+	private final String IP = "35.239.57.35"; //35.239.57.35
 	private final String PORT = "3306";
-	private final String DATABASE = "tablas";
+	private final String DATABASE = "gomezMaria";
 	private final String USERNAME = "root";
-	private final String PASSWORD = "P3n3l0p3.";
+	private final String PASSWORD = "programacion2";
 
 	public DBConnection() {
 	}
