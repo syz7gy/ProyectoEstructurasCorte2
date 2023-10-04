@@ -10,6 +10,8 @@ import co.edu.unbosque.util.Edge;
 import co.edu.unbosque.util.Graph;
 import co.edu.unbosque.util.MyLinkedList;
 import co.edu.unbosque.util.Vertex;
+import co.edu.unbosque.util.algorithm.BreadthFirstSearch;
+import co.edu.unbosque.util.algorithm.DepthFirstSearch;
 import co.edu.unbosque.view.Console;
 
 public class Controller {
@@ -27,18 +29,18 @@ public class Controller {
 	}
 
 	public void execute() {
-
+		Graph grafito = new Graph();
 		mainMenu: while (true) {
 			con.printLine("Seleccionar opcion:");
 			con.printLine(
 					"1) Encolar paciente \n2) Despachar paciente \n3) Mostrar primer paciente \n4) Mostrar todos los pacientes "
 					+ "\n5) Mostrar lugares ");
-			con.printLine("6) Cerrar");
+			con.printLine("6) REalizar busqueda en anchura \n7) Realizar busqueda en profundidad \n8)Cerrar");
 			int opcion = con.nextInt();
 
 			switch (opcion) {
 			case 1: {
-				Graph grafito = new Graph();
+				
 				MyLinkedList<String> listOfDiseases = new MyLinkedList<String>();
 				con.printLine("Nombre:");
 				String name = con.next();
@@ -78,16 +80,19 @@ public class Controller {
 					Vertex person = new Vertex(name);
 					Random randomNum = new Random(perDao.getQueueOfPeople().size());
 					int r = randomNum.nextInt();
-					PersonDTO ranPerson = perDao.getQueueOfPeople().get(r);
 					Vertex destination = new Vertex();
 					perDao.enqueue(newPerson);
-					int cantidadLugares = 5;
-					for(int i = 1; i<5; i++) {
-						con.printLine("Indique a los ultimos 5 de los siguientes lugares que ha visitado (Faltan " + cantidadLugares + "):");
-						con.printLine(plDao.showNames());
-						String placeName = con.next();
-						plDao.addPerson(placeName, newPerson);
-						cantidadLugares--;
+					int cantidadLugares = 0;
+					addingPlaces: for(int i = 0; i<5; i++) {
+						if(cantidadLugares<5) {
+							con.printLine("Indique los ultimos 5 de los siguientes lugares que ha visitado (Lleva " + cantidadLugares + "):");
+							con.printLine(plDao.showNames());
+							String placeName = con.next();
+							plDao.addPerson(placeName, newPerson);
+							cantidadLugares++;
+						} else if(cantidadLugares==5) {
+							break addingPlaces;
+						}
 					}
 					perDao.getQueueOfPeople().getData(newPerson);
 					Random randomSelect = new Random(3);
@@ -133,6 +138,20 @@ public class Controller {
 				break;
 			}
 			case 6: {
+				PersonDTO sourcePerson = perDao.getQueueOfPeople().get(0);
+				PersonDTO destinationPerson = perDao.getQueueOfPeople().get(perDao.getQueueOfPeople().size()-1);
+				Vertex source = new Vertex(sourcePerson.getName());
+				Vertex destination = new Vertex(destinationPerson.getName());
+				BreadthFirstSearch bfs = new BreadthFirstSearch(source, destination);
+			}
+			case 7: {
+				PersonDTO sourcePerson = perDao.getQueueOfPeople().get(0);
+				PersonDTO destinationPerson = perDao.getQueueOfPeople().get(perDao.getQueueOfPeople().size()-1);
+				Vertex source = new Vertex(sourcePerson.getName());
+				Vertex destination = new Vertex(destinationPerson.getName());
+				DepthFirstSearch bfs = new DepthFirstSearch(source, destination);
+			}
+			case 8: {
 				System.exit(0);
 			}
 			}
