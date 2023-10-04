@@ -11,7 +11,7 @@ public class PlaceDAO implements CRUDOperation {
 	private PlaceDTO currentPlace;
 
 	public PlaceDAO() {
-		listOfPlaces = new MyDoubleLinkedList<PlaceDTO>();
+		listOfPlaces = initList();
 		currentPlace = new PlaceDTO();
 	}
 
@@ -21,6 +21,16 @@ public class PlaceDAO implements CRUDOperation {
 
 	public void setListOfPlaces(MyDoubleLinkedList<PlaceDTO> listOfPlaces) {
 		this.listOfPlaces = listOfPlaces;
+	}
+	
+	public MyDoubleLinkedList<PlaceDTO> initList() {
+		MyDoubleLinkedList<PlaceDTO> places = new MyDoubleLinkedList<PlaceDTO>();
+		String[] names = {"Banco", "Centro Comercial", "Cine", "Universidad", "Supermercado", "Tienda de ropa", "Restaurante", "Biblioteca"};
+		for (int i = 0; i<names.length; i++) {
+			PlaceDTO newPlace = new PlaceDTO(names[i], new MyLinkedList<PersonDTO>());
+			places.add(i + 1, newPlace);
+		}
+		return places;
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class PersonDAO{
 		int year = Integer.parseInt(spaces[0]);
 		int month = Integer.parseInt(spaces[1]);
 		int day = Integer.parseInt(spaces[2]);
-		Date birth = new Date(year, month, day);
+		java.sql.Date birth = new java.sql.Date(year, month, day);
 		PersonDTO newPerson = new PersonDTO(args[0], birth, args[2], args[3], new MyLinkedList<String>());
 		queueOfPeople.enqueue(newPerson);
 	}

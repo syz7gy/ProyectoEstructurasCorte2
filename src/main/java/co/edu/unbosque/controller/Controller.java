@@ -64,36 +64,51 @@ public class Controller {
 				perDao.enqueue(newPerson);
 				plDao.addPerson(newPerson);
 
-				if (perDao.getQueueOfPeople().size() <= 1) {
-					Vertex person = new Vertex(name);
-					perDao.enqueue(newPerson);
-					plDao.addPerson(newPerson);
-				} else if (perDao.getQueueOfPeople().size() > 1) {
-					Vertex person = new Vertex(name);
-					Random randomNum = new Random(perDao.getQueueOfPeople().size());
-					int r = randomNum.nextInt();
-					PersonDTO ranPerson = perDao.getQueueOfPeople().get(r);
-					Vertex destination = new Vertex();
-					perDao.enqueue(newPerson);
-					plDao.addPerson(newPerson);
-					perDao.getQueueOfPeople().getData(newPerson);
-					Random randomSelect = new Random(3);
-					double randomWeight = randomNum.nextDouble();
-					person.addEdge(new Edge(person, destination, randomWeight));
-				}
+//				if (perDao.getQueueOfPeople().size() <= 1) {
+//					Vertex person = new Vertex(name);
+//					perDao.enqueue(newPerson);
+//					plDao.addPerson(newPerson);
+//				} else if (perDao.getQueueOfPeople().size() > 1) {
+//					Vertex person = new Vertex(name);
+//					Random randomNum = new Random(perDao.getQueueOfPeople().size());
+//					int r = randomNum.nextInt();
+//					PersonDTO ranPerson = perDao.getQueueOfPeople().get(r);
+//					Vertex destination = new Vertex();
+//					perDao.enqueue(newPerson);
+//					plDao.addPerson(newPerson);
+//					perDao.getQueueOfPeople().getData(newPerson);
+//					Random randomSelect = new Random(3);
+//					double randomWeight = randomNum.nextDouble();
+//					person.addEdge(new Edge(person, destination, randomWeight));
+//				}
+				perDao.enqueue(newPerson);
+				plDao.addPerson(newPerson);
 				break;
 			}
 			case 2: {
-				if (perDao.getQueueOfPeople() == null) {
+				if (perDao.getQueueOfPeople().size() == 0) {
 					con.printLine("No hay pacientes a los cuales despachar");
-				} else {
-					dequeuePacient: while (perDao.getQueueOfPeople() != null) {
-						if (perDao.getQueueOfPeople() == null) {
-							con.printLine("No quedan pacientes por despachar");
-							break dequeuePacient;
+				} else if(perDao.getQueueOfPeople()!=null) {
+					con.printLine("Indique la cantidad de pacientes a despachar:");
+					int amount = con.nextInt();
+					if(amount<=perDao.getQueueOfPeople().size()) {
+						dequeuePacient: for (int i = 0; i<amount; i++) {
+							if (perDao.getQueueOfPeople().size()==0) {
+								con.printLine("No quedan pacientes por despachar");
+								break dequeuePacient;
+							}
 						}
+					} else {
+						con.printLine("El numero es mayor a la cantidad de pacientes disponibles. "
+								+ "\nVolviendo al menu principal");
+						continue mainMenu;
 					}
+					
 				}
+				break;
+			}
+			case 3: {
+				con.printLine(perDao.readFirst());
 				break;
 			}
 			case 4: {
