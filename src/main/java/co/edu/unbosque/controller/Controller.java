@@ -68,7 +68,7 @@ public class Controller {
 				perDao.create(new PersonDTO(0, name, date, doc, naci, listOfDiseases));
 				PersonDTO newPerson = new PersonDTO(0,name, date, doc, naci, listOfDiseases);
 				perDao.enqueue(newPerson);
-				plDao.addPerson(newPerson);
+				plDao.addPerson(name, newPerson);
 
 
 				if (perDao.getQueueOfPeople().size() < 1) {
@@ -128,7 +128,7 @@ public class Controller {
 					}
 					
 				}
-				break si;
+				break;
 			}
 			case 3: {
 				con.printLine(perDao.readFirst());
@@ -136,7 +136,7 @@ public class Controller {
 			}
 			case 4: {
 				con.printLine(perDao.readAll());
-				break si;
+				break ;
 			}
 			case 5: {
 				con.printLine(plDao.readAll());
@@ -146,9 +146,9 @@ public class Controller {
 				System.exit(0);
 			}
 			}
-			}
 		}
-
 	}
 
-}
+	
+  }
+
