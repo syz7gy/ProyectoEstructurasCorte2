@@ -64,8 +64,6 @@ public class Controller {
 				
 				perDao.create(new PersonDTO(0, name, date, doc, naci, listOfDiseases));
 				PersonDTO newPerson = new PersonDTO(0,name, date, doc, naci, listOfDiseases);
-//				perDao.enqueue(newPerson);
-//				plDao.addPerson(name, newPerson);
 
 				if (perDao.getQueueOfPeople().size() < 1) {
 					Vertex person = new Vertex(name);

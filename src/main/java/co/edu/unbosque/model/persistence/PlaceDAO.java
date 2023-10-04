@@ -34,7 +34,7 @@ public class PlaceDAO implements CRUDOperation {
 	}
 	
 	public void addPerson(String name, PersonDTO newPerson) {
-		PlaceDTO currentPlace = new PlaceDTO();
+		
 		for(int i = 0; i<listOfPlaces.size(); i++) {
 			currentPlace = listOfPlaces.getData(i);
 			if(currentPlace.getName().equalsIgnoreCase(name)) {
