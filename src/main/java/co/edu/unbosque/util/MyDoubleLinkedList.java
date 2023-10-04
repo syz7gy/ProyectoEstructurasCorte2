@@ -11,6 +11,7 @@ public class MyDoubleLinkedList<T> implements Iterable<T>,Serializable{
 	public MyDoubleLinkedList() {
 		posActual=-1;
 		size=0;
+		head = new DNode<T>();
 	}
 
 	public DNode<T> getHead() {

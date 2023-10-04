@@ -9,10 +9,10 @@ public class DequeList<T> extends MyDoubleLinkedList<T> implements Deque<T>, Ser
 
 	public DequeList() {
 		super();
-		head = new DNode<T>();
 		tail = new DNode<T>();
 		head.setNext(tail);
 		tail.setPrevious(head);
+		size = 0;
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class DequeList<T> extends MyDoubleLinkedList<T> implements Deque<T>, Ser
 
 	@Override
 	public DNode<T> get(T info) {
-		DNode<T> temp = head;
+		DNode<T> temp = this.head;
 		if (head != null) {
 			searchInfo: while (head.getNext() != null) {
 				temp = temp.getNext();
@@ -97,11 +97,11 @@ public class DequeList<T> extends MyDoubleLinkedList<T> implements Deque<T>, Ser
 	}
 
 	public T getByIndex(int i) {
-		DNode<T> temp = this.tail;
+		DNode<T> temp = this.head;
 		if (head != null) {
 			int n = 0;
 			searchInfo: while (head.getNext() != null) {
-				temp = temp.getNext();
+				temp = head.getNext();
 				if (n == i) {
 					break searchInfo;
 				}

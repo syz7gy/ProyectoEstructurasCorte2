@@ -31,7 +31,9 @@ public class Controller {
 		mainMenu: while (true) {
 			con.printLine("Seleccionar opcion:");
 			con.printLine(
-					"1) Encolar paciente \n2) Despachar paciente \n3) Mostrar primer paciente \n4) Mostrar todos los pacientes \n5) Cerrar ");
+					"1) Encolar paciente \n2) Despachar paciente \n3) Mostrar primer paciente \n4) Mostrar todos los pacientes "
+					+ "\n5) Mostrar lugares ");
+			con.printLine("6) Cerrar");
 			int opcion = con.nextInt();
 
 			switch (opcion) {
@@ -46,7 +48,7 @@ public class Controller {
 				int year = Integer.parseInt(spaces[0]);
 				int month = Integer.parseInt(spaces[1]);
 				int day = Integer.parseInt(spaces[2]);
-				Date birth = new Date(year, month, day);
+				java.sql.Date birth = new java.sql.Date(year, month, day);
 				con.printLine("Documento: ");
 				String doc = con.next();
 				con.printLine("Nacionalidad:");
@@ -58,31 +60,27 @@ public class Controller {
 					String disease = con.next();
 					listOfDiseases.add(disease);
 				}
-				con.printLine("Parámetros del paciente satisfechos. \nPciente ingresado con exito");
-
 				PersonDTO newPerson = new PersonDTO(name, birth, doc, naci, listOfDiseases);
-				perDao.enqueue(newPerson);
-				plDao.addPerson(newPerson);
 
-//				if (perDao.getQueueOfPeople().size() <= 1) {
-//					Vertex person = new Vertex(name);
-//					perDao.enqueue(newPerson);
-//					plDao.addPerson(newPerson);
-//				} else if (perDao.getQueueOfPeople().size() > 1) {
-//					Vertex person = new Vertex(name);
-//					Random randomNum = new Random(perDao.getQueueOfPeople().size());
-//					int r = randomNum.nextInt();
-//					PersonDTO ranPerson = perDao.getQueueOfPeople().get(r);
-//					Vertex destination = new Vertex();
-//					perDao.enqueue(newPerson);
-//					plDao.addPerson(newPerson);
-//					perDao.getQueueOfPeople().getData(newPerson);
-//					Random randomSelect = new Random(3);
-//					double randomWeight = randomNum.nextDouble();
-//					person.addEdge(new Edge(person, destination, randomWeight));
-//				}
-				perDao.enqueue(newPerson);
-				plDao.addPerson(newPerson);
+				if (perDao.getQueueOfPeople().size() < 1) {
+					Vertex person = new Vertex(name);
+					grafito.addVertex(person);
+					perDao.enqueue(newPerson);
+					plDao.addPerson(newPerson);
+				} else {
+					Vertex person = new Vertex(name);
+					Random randomNum = new Random(perDao.getQueueOfPeople().size());
+					int r = randomNum.nextInt();
+					PersonDTO ranPerson = perDao.getQueueOfPeople().get(r);
+					Vertex destination = new Vertex();
+					perDao.enqueue(newPerson);
+					plDao.addPerson(newPerson);
+					perDao.getQueueOfPeople().getData(newPerson);
+					Random randomSelect = new Random(3);
+					double randomWeight = randomNum.nextDouble();
+					person.addEdge(new Edge(person, destination, randomWeight));
+				}
+				con.printLine("Parámetros del paciente satisfechos. \nPciente ingresado con exito");
 				break;
 			}
 			case 2: {
@@ -93,7 +91,8 @@ public class Controller {
 					int amount = con.nextInt();
 					if(amount<=perDao.getQueueOfPeople().size()) {
 						dequeuePacient: for (int i = 0; i<amount; i++) {
-							if (perDao.getQueueOfPeople().size()==0) {
+							perDao.dequeue();
+							if (perDao.getQueueOfPeople()==null) {
 								con.printLine("No quedan pacientes por despachar");
 								break dequeuePacient;
 							}
