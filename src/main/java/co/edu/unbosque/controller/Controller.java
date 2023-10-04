@@ -66,7 +66,13 @@ public class Controller {
 					Vertex person = new Vertex(name);
 					grafito.addVertex(person);
 					perDao.enqueue(newPerson);
-					plDao.addPerson(newPerson);
+					int cantidadLugares = 5;
+					for(int i = 0; i<5; i++) {
+						con.printLine("Indique a los ultimos 5 de los siguientes lugares que ha visitado (Faltan" + cantidadLugares + "):");
+						cantidadLugares--;
+						String placeName = con.next();
+						plDao.addPerson(placeName, newPerson);
+					}
 				} else {
 					Vertex person = new Vertex(name);
 					Random randomNum = new Random(perDao.getQueueOfPeople().size());
@@ -74,10 +80,17 @@ public class Controller {
 					PersonDTO ranPerson = perDao.getQueueOfPeople().get(r);
 					Vertex destination = new Vertex();
 					perDao.enqueue(newPerson);
-					plDao.addPerson(newPerson);
+					int cantidadLugares = 5;
+					for(int i = 0; i<5; i++) {
+						con.printLine("Indique a los ultimos 5 de los siguientes lugares que ha visitado (Faltan " + cantidadLugares + "):");
+						con.printLine(plDao.showNames());
+						cantidadLugares--;
+						String placeName = con.next();
+						plDao.addPerson(placeName, newPerson);
+					}
 					perDao.getQueueOfPeople().getData(newPerson);
 					Random randomSelect = new Random(3);
-					double randomWeight = randomNum.nextDouble();
+					double randomWeight = randomSelect.nextDouble();
 					person.addEdge(new Edge(person, destination, randomWeight));
 				}
 				con.printLine("Parámetros del paciente satisfechos. \nPciente ingresado con exito");
@@ -115,6 +128,10 @@ public class Controller {
 				break;
 			}
 			case 5: {
+				con.printLine(plDao.readAll());
+				break;
+			}
+			case 6: {
 				System.exit(0);
 			}
 			}
