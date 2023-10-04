@@ -11,7 +11,7 @@ public class PlaceDAO implements CRUDOperation {
 	private PlaceDTO currentPlace;
 
 	public PlaceDAO() {
-		listOfPlaces = new MyDoubleLinkedList<PlaceDTO>();
+		listOfPlaces = initList();
 		currentPlace = new PlaceDTO();
 	}
 
@@ -21,6 +21,27 @@ public class PlaceDAO implements CRUDOperation {
 
 	public void setListOfPlaces(MyDoubleLinkedList<PlaceDTO> listOfPlaces) {
 		this.listOfPlaces = listOfPlaces;
+	}
+	
+	public MyDoubleLinkedList<PlaceDTO> initList() {
+		MyDoubleLinkedList<PlaceDTO> places = new MyDoubleLinkedList<PlaceDTO>();
+		String[] names = {"Banco", "Centro Comercial", "Cine", "Universidad", "Supermercado", "Tienda de ropa", "Restaurante", "Biblioteca"};
+		for (int i = 0; i<names.length; i++) {
+			PlaceDTO newPlace = new PlaceDTO(names[i], new MyLinkedList<PersonDTO>());
+			places.add(i + 1, newPlace);
+		}
+		return places;
+	}
+	
+	public void addPerson(String name, PersonDTO newPerson) {
+		PlaceDTO currentPlace = null;
+		for(int i = 0; 1<listOfPlaces.size(); i++) {
+			currentPlace = listOfPlaces.getData(i);
+			if(currentPlace.getName().equals(name)) {
+				break;
+			}
+		}
+		currentPlace.getListOfVisiters().add(newPerson);
 	}
 
 	@Override
@@ -40,7 +61,15 @@ public class PlaceDAO implements CRUDOperation {
 	public String readAll() {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < listOfPlaces.size(); i++) {
-			sb.append(listOfPlaces.get(i).toString());
+			sb.append(listOfPlaces.getData(i));
+		}
+		return sb.toString();
+	}
+	
+	public String showNames() {
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i<listOfPlaces.size(); i++) {
+			sb.append(listOfPlaces.getData(i).getName() + ", ");
 		}
 		return sb.toString();
 	}
@@ -103,10 +132,6 @@ public class PlaceDAO implements CRUDOperation {
 			e.printStackTrace();
 			return -1;
 		}
-	}
-	
-	public void addPerson(PersonDTO newPerson) {
-		this.currentPlace.getListOfVisiters().add(newPerson);
 	}
 
 }

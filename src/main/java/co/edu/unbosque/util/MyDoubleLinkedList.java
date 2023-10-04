@@ -11,6 +11,7 @@ public class MyDoubleLinkedList<T> implements Iterable<T>,Serializable{
 	public MyDoubleLinkedList() {
 		posActual=-1;
 		size=0;
+		head = new DNode<T>();
 	}
 
 	public DNode<T> getHead() {
@@ -144,6 +145,27 @@ public class MyDoubleLinkedList<T> implements Iterable<T>,Serializable{
 		if(posActual>index) backwards(Math.abs(posActual-index));
 		else forward(Math.abs(posActual-index));
 		return currentPosition;
+	}
+	
+	public T getData(int index) {
+		if(posActual>index) backwards(Math.abs(posActual-index));
+		else forward(Math.abs(posActual-index));
+		return currentPosition.getInfo();
+	}
+	
+	public T getDataByInfo(T info) {
+		DNode<T> targetNode = null;
+		DNode<T> currentNode = this.head;
+		int counter = 0;
+		
+		while(currentNode != null && !currentNode.getInfo().equals(info)) {
+			currentNode = currentNode.getNext();
+			counter++;
+		}
+		if(currentNode != null) {
+			targetNode = currentNode;
+		}
+		return targetNode.getInfo();
 	}
 	
 	

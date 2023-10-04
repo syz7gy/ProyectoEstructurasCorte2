@@ -8,6 +8,7 @@ public class PersonDTO {
 	
 	private int id; 
 	private String name;
+
 	private String birth;
 	private long document;
 	private String nationality;
@@ -17,7 +18,9 @@ public class PersonDTO {
 		this.listOfDiseases = new MyLinkedList<String>();
 	}
 
+
 	public PersonDTO( int id, String name, String birth, long document, String nationality,
+
 			MyLinkedList<String> listOfDiseases) {
 		super();
 		this.id = id;
@@ -49,6 +52,7 @@ public class PersonDTO {
 	}
 
 	public void setBirth(String birth) {
+
 		this.birth = birth;
 	}
 
